@@ -2,10 +2,11 @@ from rest_framework import permissions
 
 class IsAdminOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        # Allow authenticated staff users to create tasks
-        return request.user.is_authenticated and request.user.role.type == 'staff'
+        if request.user.is_authenticated:
+            if request.method in permissions.SAFE_METHODS:
+                return True
+            # Allow authenticated staff users to create tasks
+            return request.user.role.type == 'staff'
 
         #if request.user.is_authenticated:
         #    if request.user.role.type == 'admin':
