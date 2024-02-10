@@ -6,7 +6,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
             if request.method in permissions.SAFE_METHODS:
                 return True
             # Allow authenticated staff users to create tasks
-            return request.user.role.type == 'staff'
+            return request.user.role.type == 'staff' or request.user.role.type=='admin'
 
         #if request.user.is_authenticated:
         #    if request.user.role.type == 'admin':

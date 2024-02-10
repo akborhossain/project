@@ -10,3 +10,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAdminOrReadOnly]
+    def perform_create(self, serializer):
+        username = self.request.user
+        serializer.save(username=username)
